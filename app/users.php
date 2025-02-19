@@ -67,15 +67,11 @@ function getPagination(): array {
     ];
 }
 
-function getUser(int $id): array {
-    $sql = "SELECT * FROM users WHERE id = :id";
-    $stmt = getDbConnexion()->prepare($sql);
-    $stmt->execute(['id' => $id]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+require_once './models/user.php';
+$user = new User();
 
-    return $user;
-}
-
+var_dump(getPos());
+die();
 ?>
 
 <!doctype html>
