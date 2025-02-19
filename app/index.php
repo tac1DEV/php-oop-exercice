@@ -25,13 +25,7 @@ function getLimit(): int {
 }
 
 
-function getPostsCount(): int {
-    $sql = "SELECT COUNT(*) FROM posts";
-    $stmt = getDbConnexion()->query($sql);
-    $count = $stmt->fetchColumn();
 
-    return $count;
-}
 
 function getPagination(): array {
     $postsCount = getPostsCount();
@@ -44,24 +38,16 @@ function getPagination(): array {
     ];
 }
 
-function getPosts(): array {
 
-    $currentPage = getPage();
-    $postsPerPage = getLimit();
-    $offset = ($currentPage - 1) * $postsPerPage;
+require_once './models/post.php';
 
-    $sql = "SELECT posts.id, posts.title, posts.created_at, users.name, users.id as user_id
-    FROM posts 
-    INNER JOIN users ON posts.user_id = users.id
-    ORDER BY posts.created_at DESC
-    LIMIT 10
-    OFFSET $offset;
-    ";
-    $stmt = getDbConnexion()->query($sql);
-    $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$post = new Post();
+// var_dump($post->getPosts());
+var_dump($post->getPosts());
+var_dump($post->getPostsCount());
+die();
 
-    return $posts;
-}
+
 ?>
 
 
